@@ -4,190 +4,226 @@
 ![React](https://img.shields.io/badge/React-Frontend-61DAFB)
 ![LangGraph](https://img.shields.io/badge/LangGraph-Multi--Agent-purple)
 ![Digital Twin](https://img.shields.io/badge/Digital_Twin-Enabled-blueviolet)
-![RAG](https://img.shields.io/badge/RAG-Industrial_Knowledge_Base-darkgreen)
-![MQTT](https://img.shields.io/badge/MQTT-IoT-orange)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-336791)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 # 👻 PermitGhost
 
 > **AI-Powered Industrial Safety Intelligence Platform**
 >
-> Detecting dangerous work permit overlaps before they become industrial disasters.
+> *Detecting dangerous work permit overlaps before they become industrial disasters.*
 
 ---
 
-## 🚨 The Problem
+## 🚧 Project Status
 
-Industrial accidents are rarely caused by a single failure. They occur when multiple independent activities create an unforeseen chain of events.
+This project is currently under active development for the **Economic Times AI Hackathon 2026**.
 
-Imagine:
+### Current Progress
 
-- 🔥 Hot work (welding) is underway.
-- ☣️ A toxic gas leak begins nearby.
-- 👷 Workers enter the affected area.
-- ⚙️ A critical pump fails.
+- ✅ System Architecture
+- ✅ Repository Setup
+- 🟡 Backend Development
+- ⬜ Digital Twin Simulator
+- ⬜ Multi-Agent AI Engine
+- ⬜ RAG Knowledge Base
+- ⬜ React Dashboard
+- ⬜ Deployment
 
-Each event may appear safe in isolation, but together they create a catastrophic hazard.
+---
 
-Current Permit-to-Work (PTW) systems only validate individual permits—they **do not understand compound risk**.
+# 🚨 Why PermitGhost?
 
-**PermitGhost** fills this missing intelligence layer.
+Industrial accidents are rarely caused by a single failure.
+
+Instead, they occur when multiple independent activities interact in unexpected ways.
+
+Imagine this situation inside a refinery:
+
+- 🔥 Welding is underway.
+- ☣️ A gas leak begins nearby.
+- 👷 Workers enter the affected zone.
+- ⚙️ A cooling pump unexpectedly fails.
+
+Each event alone appears manageable.
+
+Together, they become catastrophic.
+
+Today's Permit-to-Work (PTW) systems simply validate paperwork.
+
+They **do not continuously reason across permits, sensors, equipment, worker locations, and historical incidents.**
+
+PermitGhost fills this missing intelligence layer.
 
 ---
 
 # 🎯 Our Solution
 
-PermitGhost is an AI-powered Industrial Safety Intelligence Platform that continuously monitors:
+PermitGhost creates a **real-time Digital Twin** of an industrial plant and continuously evaluates its safety using multiple AI agents.
 
-- Active Work Permits
-- Live IoT Sensor Streams
-- Worker Locations
-- Equipment Health
-- Historical Incident Reports
-- Industrial Safety Regulations
-
-The platform builds a **real-time Digital Twin** of the plant and uses **multi-agent AI reasoning** to detect dangerous combinations before accidents occur.
-
-Instead of asking:
+Instead of asking
 
 > "Is this permit valid?"
 
-PermitGhost continuously asks:
+PermitGhost continuously asks
 
-> **"Is everything happening in this plant still safe?"**
+> **"Given everything happening inside this plant right now, is it still safe?"**
+
+The platform combines:
+
+- Active Work Permits
+- Live Sensor Streams
+- Worker Locations
+- Equipment Health
+- Historical Near-Miss Reports
+- Industrial Safety Regulations
+
+to predict compound risks before accidents occur.
 
 ---
 
 # 🧠 Core Features
 
-### 🚧 Intelligent Permit Analysis
-- Detects overlapping and conflicting work permits.
-- Tracks permit validity and scheduling conflicts.
-- Identifies unsafe combinations of simultaneous activities.
+## 🚧 Intelligent Permit Analysis
 
-### 🌐 Digital Twin Simulation
-- Real-time virtual model of an industrial plant.
-- Simulated workers, machinery, permits, and IoT sensors.
-- Dynamic risk propagation across the facility.
+- Detects overlapping work permits
+- Identifies conflicting maintenance activities
+- Tracks permit validity and scheduling conflicts
 
-### 🤖 Multi-Agent AI
-Specialized AI agents collaborate to evaluate safety:
+---
 
-- Permit Intelligence Agent
-- Sensor Intelligence Agent
-- Worker Location Agent
-- Equipment Health Agent
-- Historical Incident (RAG) Agent
-- Risk Fusion Agent
+## 🌐 Digital Twin Simulation
 
-### 📡 Live Sensor Monitoring
-Continuously processes:
+A live virtual refinery containing
 
-- Gas concentration
-- Temperature
-- Pressure
-- Oxygen levels
-- Toxic gas detection
+- Workers
+- Equipment
+- Pipelines
+- Storage Tanks
+- Sensors
+- Active Work Permits
 
-### 📚 Explainable AI + RAG
-Every alert includes:
+The Digital Twin continuously evolves as simulated events occur.
 
-- Root cause analysis
-- Similar historical incidents
-- Relevant industrial safety regulations
-- Recommended mitigation actions
+---
 
-### 📊 Interactive Dashboard
-- Live plant map
-- Active permits
-- Sensor visualization
-- AI-generated risk timeline
-- Incident evidence panel
+## 🤖 Multi-Agent AI
+
+Rather than relying on a single AI model, PermitGhost uses specialized agents.
+
+- 📄 Permit Intelligence Agent
+- 📡 Sensor Intelligence Agent
+- 📍 Worker Location Agent
+- ⚙️ Equipment Health Agent
+- 📚 Historical Incident (RAG) Agent
+- 🧠 Risk Fusion Agent
+
+Each agent focuses on one aspect of industrial safety before collaborating to produce a final decision.
+
+---
+
+## 📚 Explainable AI
+
+Every alert answers three questions:
+
+- **What happened?**
+- **Why is it dangerous?**
+- **What should be done next?**
+
+Along with:
+
+- Historical incident references
+- Relevant safety regulations
+- Confidence score
+- Recommended mitigation steps
+
+---
+
+## 📊 Interactive Dashboard
+
+- Live Plant Layout
+- Active Work Permits
+- Live Sensor Data
+- Worker Locations
+- AI Risk Timeline
+- Incident Evidence Panel
+- Real-Time Alerts
 
 ---
 
 # 🏗️ System Architecture
 
 ```text
-                   React Dashboard
-                          │
-                  Live WebSocket Updates
-                          │
-                  FastAPI Backend API
-                          │
-          ┌───────────────┴────────────────┐
-          │                                │
-      PostgreSQL                    AI Intelligence Layer
-          │                                │
-          │                        Multi-Agent System
-          │                                │
-          │                        Digital Twin Engine
-          │                                │
-          └────────────Sensor Simulator────┘
+                     React Dashboard
+                            │
+                    Live WebSocket Updates
+                            │
+                     FastAPI Backend API
+                            │
+          ┌─────────────────┴─────────────────┐
+          │                                   │
+     PostgreSQL                     AI Intelligence Layer
+          │                                   │
+          │                         Multi-Agent System
+          │                                   │
+          │                          Digital Twin Engine
+          │                                   │
+          └──────────── Sensor Simulator ─────┘
 ```
 
 ---
 
-# 🛠️ Tech Stack
+# ⚙️ Tech Stack
 
-## Frontend
+### Frontend
+
 - React
 - Tailwind CSS
 - React Flow
 - WebSockets
 
-## Backend
+### Backend
+
 - FastAPI
 - SQLAlchemy
 - PostgreSQL
 - pgvector
 
-## AI
+### AI
+
 - LangGraph
-- RAG
+- Retrieval-Augmented Generation (RAG)
 - scikit-learn
 - Python
 
-## Digital Twin
+### Digital Twin
+
 - Custom Simulation Engine
-- MQTT Sensor Simulation
-- Real-time Event Generator
+- Sensor Simulator
+- Event Generator
 
 ---
 
-# 📂 Project Structure
+# 🚀 Project Workflow
 
 ```text
-PermitGhost/
-
-├── backend/
-├── frontend/
-├── ai_engine/
-├── digital_twin/
-├── data/
-├── docs/
-├── tests/
-└── scripts/
-```
-
----
-
-# 🚀 Planned Workflow
-
-```
 Digital Twin
-      ↓
-Live Sensor Streams
-      ↓
+      │
+      ▼
+Sensor & Event Simulation
+      │
+      ▼
 Permit Ingestion
-      ↓
-Multi-Agent AI Reasoning
-      ↓
+      │
+      ▼
+Multi-Agent Reasoning
+      │
+      ▼
 Compound Risk Detection
-      ↓
-Explainable Alert Generation
-      ↓
+      │
+      ▼
+Explainable AI
+      │
+      ▼
 Supervisor Dashboard
 ```
 
@@ -195,38 +231,63 @@ Supervisor Dashboard
 
 # 🎬 Demo Scenario
 
-1. Launch the Digital Twin simulation.
-2. Workers begin maintenance activities.
+1. Start the Digital Twin simulation.
+2. Workers begin maintenance operations.
 3. Multiple work permits become active.
-4. A simulated gas leak develops.
-5. Hot work starts in the affected zone.
-6. AI agents detect a dangerous compound risk.
-7. PermitGhost generates a human-readable alert with supporting evidence.
-8. Supervisor receives mitigation recommendations before an accident occurs.
+4. A gas leak develops in Zone 4.
+5. A hot-work permit activates nearby.
+6. AI agents correlate permits, sensors, worker locations, and historical incidents.
+7. PermitGhost detects a compound hazard.
+8. The dashboard highlights the affected zone.
+9. The system explains the risk and recommends immediate mitigation before work continues.
 
 ---
 
-# 🔮 Future Roadmap
+# 🗺️ Roadmap
 
-- CCTV-based worker tracking using Computer Vision
+- [x] Repository Setup
+- [x] System Architecture
+- [ ] Database Design
+- [ ] FastAPI Backend
+- [ ] Digital Twin Simulator
+- [ ] Permit Management Engine
+- [ ] Sensor Simulator
+- [ ] Multi-Agent AI
+- [ ] RAG Knowledge Base
+- [ ] React Dashboard
+- [ ] Live WebSockets
+- [ ] Deployment
+- [ ] Demo Video
+
+---
+
+# 🔮 Future Scope
+
+- Computer Vision for worker tracking
 - Wearable IoT integration
 - Predictive accident forecasting
 - Automatic permit suspension
 - Shift handover intelligence
-- Regulatory audit generation
+- Regulatory audit report generation
 - Real SCADA integration
-- 3D Digital Twin
+- 3D Digital Twin visualization
 
 ---
 
 # 🌍 Vision
 
-Our goal is not simply to digitize industrial permits.
+PermitGhost is more than a permit management application.
 
-Our goal is to build an AI safety intelligence layer that enables industrial facilities to prevent accidents before they happen.
+Our vision is to build an **AI Safety Intelligence Layer** capable of continuously understanding everything happening inside an industrial facility and preventing accidents before they occur.
+
+---
+
+## 🤝 Contributing
+
+Contributions, suggestions, and feedback are always welcome.
 
 ---
 
 ## 📄 License
 
-This project is currently under active development for research and hackathon purposes.
+This project is licensed under the MIT License.
