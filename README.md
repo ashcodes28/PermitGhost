@@ -1,16 +1,19 @@
 ![Status](https://img.shields.io/badge/Status-In_Development-orange)
-![Python](https://img.shields.io/badge/Python-3.11-blue)
+![Python](https://img.shields.io/badge/Python-3.13-blue)
 ![FastAPI](https://img.shields.io/badge/FastAPI-Backend-009688)
-![React](https://img.shields.io/badge/React-Frontend-61DAFB)
-![LangGraph](https://img.shields.io/badge/LangGraph-Multi--Agent-purple)
-![Digital Twin](https://img.shields.io/badge/Digital_Twin-Enabled-blueviolet)
+![SQLite](https://img.shields.io/badge/SQLite-Database-003B57)
+![Digital Twin](https://img.shields.io/badge/Digital_Twin-Running-blueviolet)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 # PermitGhost
 
 > AI-Powered Industrial Safety Intelligence Platform
 
-PermitGhost is an intelligent industrial safety platform that detects dangerous compound risks by continuously analysing work permits, live process data, worker locations, equipment status and historical incidents. Instead of validating permits independently, the system reasons about the entire plant as a continuously evolving environment and identifies hazardous combinations before they become accidents.
+PermitGhost is an intelligent industrial safety platform designed to identify hazardous operational conditions before they become industrial accidents.
+
+Unlike conventional Permit-to-Work (PTW) systems that validate permits independently, PermitGhost continuously reasons over the complete operational state of an industrial facility. It combines environmental conditions, equipment health, worker activity and permit status to detect dangerous combinations and generate explainable safety alerts.
+
+The current implementation includes a real-time Digital Twin, live sensor simulation, a FastAPI backend and an explainable AI risk assessment engine.
 
 ---
 
@@ -20,136 +23,106 @@ PermitGhost is currently under active development for the **Economic Times AI Ha
 
 | Module | Status |
 |---------|--------|
-| Repository Setup | ✅ |
-| System Design | ✅ |
-| Backend | 🚧 |
-| Digital Twin | ⏳ |
-| AI Engine | ⏳ |
-| Dashboard | ⏳ |
+| Repository Setup | Complete |
+| System Design | Complete |
+| FastAPI Backend | Complete |
+| SQLite Database | Complete |
+| REST APIs | Complete |
+| Digital Twin Simulation | Complete |
+| AI Risk Engine | In Progress |
+| Knowledge Retrieval (RAG) | Planned |
+| React Dashboard | Planned |
+| Deployment | Planned |
 
 ---
 
 # Motivation
 
-Industrial accidents rarely occur because of a single failure. More often, they emerge from multiple independent events interacting in unexpected ways.
+Industrial accidents are rarely caused by a single failure. Instead, they occur when several independent operational events overlap.
 
-Consider a refinery where welding is taking place near a storage tank while a small gas leak begins to develop. At the same time, workers enter the area for maintenance and a nearby cooling pump unexpectedly fails. Each event appears acceptable when viewed independently, yet together they create a situation with severe consequences.
+For example, consider a refinery where welding is being performed while a minor gas leak develops nearby. Maintenance workers enter the same area and a cooling pump begins to malfunction. Individually, each event may appear acceptable. Together, however, they create conditions that can rapidly escalate into a major accident.
 
-Most Permit-to-Work (PTW) systems only verify whether a permit has been approved and whether mandatory fields have been completed. They do not continuously correlate permits with live operating conditions, worker movements or previous incidents.
+Most existing Permit-to-Work systems verify whether a permit has been approved and whether mandatory documentation has been completed. They do not continuously evaluate changing operational conditions after the permit becomes active.
 
-PermitGhost aims to provide this missing intelligence layer.
+PermitGhost introduces an AI-powered safety intelligence layer that continuously monitors the evolving plant state and identifies hazardous combinations before they result in incidents.
 
 ---
 
 # System Overview
 
-The platform constructs a Digital Twin of an industrial plant and continuously updates it using simulated operational data. Multiple AI agents analyse different aspects of plant operations before combining their observations into a single explainable risk assessment.
+PermitGhost models an industrial refinery as a continuously evolving Digital Twin. Each operational zone maintains environmental sensor readings, equipment status, worker occupancy and permit activity.
 
-```mermaid
-flowchart TD
-
-A[Digital Twin]
-
-B[Permit Engine]
-C[Sensor Streams]
-D[Worker Tracking]
-E[Equipment Health]
-F[Historical Incidents]
-
-A --> B
-A --> C
-A --> D
-A --> E
-
-F --> G[RAG Agent]
-
-B --> H[Risk Fusion Engine]
-C --> H
-D --> H
-E --> H
-G --> H
-
-H --> I[Explainable Alert]
-
-I --> J[Supervisor Dashboard]
-```
-
----
-
-# Architecture
-
-PermitGhost is divided into four major subsystems.
-
-The backend is responsible for permit management, data ingestion and communication with the frontend. The Digital Twin continuously simulates the industrial environment and generates realistic events. The AI Engine consumes these events using multiple specialised agents before producing an explainable risk assessment. Finally, the React dashboard visualises the current state of the plant and all active alerts.
+The backend continuously updates this simulated plant state, stores it in a database and exposes it through REST APIs. The AI Risk Engine analyses the current operational state, generates explainable safety alerts and provides recommendations for corrective action.
 
 ```mermaid
 flowchart LR
 
-Frontend["React Dashboard"]
+DT["Digital Twin Simulator"]
 
-Backend["FastAPI Backend"]
+DB[(SQLite Database)]
 
-Database[(PostgreSQL)]
+AI["AI Risk Engine"]
 
-Twin["Digital Twin Simulator"]
+API["FastAPI Backend"]
 
-AI["Multi-Agent AI"]
+UI["React Dashboard"]
 
-Frontend <-- WebSockets --> Backend
-
-Backend --> Database
-Backend --> Twin
-
-Twin --> AI
-
-AI --> Backend
+DT --> DB
+DB --> AI
+AI --> DB
+API --> DB
+UI --> API
 ```
 
 ---
 
-# Multi-Agent Architecture
+# Current Features
 
-Instead of relying on a single reasoning model, PermitGhost divides responsibility across specialised agents.
+PermitGhost currently provides:
 
-Each agent focuses on one aspect of industrial safety before passing its findings to the Risk Fusion Agent.
-
-```mermaid
-flowchart TD
-
-P[Permit Agent]
-
-S[Sensor Agent]
-
-L[Location Agent]
-
-E[Equipment Agent]
-
-R[RAG Agent]
-
-P --> F[Risk Fusion Agent]
-S --> F
-L --> F
-E --> F
-R --> F
-
-F --> O[Risk Assessment]
-```
+- Real-time Digital Twin simulation across multiple industrial zones
+- Continuous simulation of temperature, humidity, gas concentration and pressure
+- Equipment health monitoring
+- Worker occupancy simulation
+- Active Permit-to-Work tracking
+- Explainable AI-based risk scoring
+- REST APIs built with FastAPI
+- SQLite persistence layer
+- Interactive Swagger API documentation
 
 ---
 
-# Core Components
+# Digital Twin
 
-## Digital Twin
+The Digital Twin represents a virtual refinery consisting of multiple operational zones including tank farms, boiler rooms, loading bays and control rooms.
 
-The Digital Twin represents a virtual refinery containing workers, equipment, permits and environmental sensors. Rather than replaying historical data, it continuously generates realistic industrial scenarios including equipment failures, worker movement, gas leaks and maintenance operations. This provides a dynamic environment in which the AI system can be evaluated without requiring access to confidential industrial datasets.
+Each zone maintains its own operational state, including:
 
-## Multi-Agent AI
+- Environmental sensor readings
+- Equipment condition
+- Worker occupancy
+- Active permits
+- Operational events
+- Current risk level
 
-PermitGhost employs a collaborative reasoning approach in which each agent specialises in a different domain such as permit analysis, sensor interpretation, equipment monitoring or historical incident retrieval. A fusion agent combines these observations into a single risk assessment together with an explanation and recommended mitigation strategy.
+Unlike random data generators, the Digital Twin maintains a persistent plant state that evolves over time, enabling realistic simulation of industrial operations.
 
-## Explainable Alerts
+---
 
-Every alert generated by the platform includes a description of the detected hazard, the reasoning behind the decision, supporting historical evidence and suggested corrective actions. This allows supervisors to understand why a recommendation has been made instead of receiving only a numerical risk score.
+# AI Risk Assessment
+
+PermitGhost uses an explainable rule-based AI engine to evaluate operational risk.
+
+Instead of producing opaque predictions, the engine analyses multiple safety indicators including gas concentration, temperature, equipment condition, worker density and permit activity before assigning an overall risk score.
+
+Each generated alert includes:
+
+- Severity level
+- Confidence score
+- Explanation of contributing factors
+- Recommended mitigation actions
+
+This design ensures every decision remains transparent and auditable.
 
 ---
 
@@ -159,13 +132,56 @@ Every alert generated by the platform includes a description of the detected haz
 PermitGhost/
 
 ├── backend/
+│   ├── main.py
+│   ├── api.py
+│   ├── database.py
+│   ├── models.py
+│   ├── schemas.py
+│   ├── digital_twin.py
+│   ├── ai_engine.py
+│   ├── services.py
+│   ├── config.py
+│   ├── seed.py
+│   └── requirements.txt
+│
 ├── frontend/
-├── ai_engine/
-├── digital_twin/
+│
 ├── data/
+│
 ├── docs/
-├── tests/
-└── scripts/
+│
+└── README.md
+```
+
+---
+
+# Current Backend Workflow
+
+```mermaid
+flowchart LR
+
+A[Digital Twin]
+
+B[SQLite Database]
+
+C[AI Risk Engine]
+
+D[Alerts]
+
+E[FastAPI API]
+
+F[React Dashboard]
+
+A --> B
+
+B --> C
+
+C --> D
+
+E --> B
+E --> D
+
+F --> E
 ```
 
 ---
@@ -175,29 +191,39 @@ PermitGhost/
 ```mermaid
 flowchart LR
 
-A[System Design]
---> B[Database]
---> C[Backend APIs]
---> D[Digital Twin]
---> E[AI Agents]
---> F[RAG]
---> G[Dashboard]
---> H[Deployment]
+A[Project Planning]
+--> B[Backend APIs]
+--> C[Digital Twin]
+--> D[AI Risk Engine]
+--> E[RAG Integration]
+--> F[React Dashboard]
+--> G[Deployment]
 ```
 
 ---
 
 # Demonstration Workflow
 
-The demonstration begins by launching the Digital Twin, which creates a virtual refinery populated with workers, equipment and active work permits. As simulated operations continue, sensor readings evolve over time and maintenance activities begin to overlap.
+During a demonstration, the Digital Twin continuously simulates refinery operations across multiple industrial zones.
 
-When hazardous conditions emerge—for example, hot work occurring near a gas leak—the AI agents independently analyse permits, sensor readings and historical incidents before the fusion engine generates an explainable compound-risk alert. The dashboard visualises the affected area and presents recommendations before work is allowed to continue.
+Environmental conditions, worker activity and permit status evolve over time. As hazardous situations emerge, the AI Risk Engine evaluates the plant state, assigns a risk level and generates explainable alerts together with mitigation recommendations.
+
+The React dashboard visualises the current plant state and displays all active safety alerts in real time.
 
 ---
 
 # Future Work
 
-Future versions of PermitGhost will focus on integrating live SCADA systems, computer vision for worker localisation, wearable IoT devices, predictive accident forecasting and regulatory audit generation. Long-term, the goal is to evolve PermitGhost into a comprehensive AI-powered safety intelligence platform capable of assisting industrial facilities in preventing accidents before they occur.
+Future development will focus on extending PermitGhost into a production-ready industrial safety platform by introducing:
+
+- Retrieval-Augmented Generation (RAG) using industrial safety manuals
+- Multi-agent AI reasoning
+- MQTT and IoT sensor integration
+- SCADA integration
+- Computer vision for worker localisation
+- Predictive accident forecasting
+- Regulatory compliance reporting
+- Real-time notification systems
 
 ---
 
