@@ -13,3 +13,4 @@ SIMULATION_INTERVAL = 1
 RAG_PATH = BASE_DIR.parent / "data"
 
 MODEL_NAME = "all-MiniLM-L6-v2"
+

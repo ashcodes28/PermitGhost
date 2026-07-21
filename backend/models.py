@@ -18,10 +18,24 @@ class Sensor(Base):
     __tablename__ = "sensors"
 
     id = Column(Integer, primary_key=True, index=True)
+
     zone = Column(String, nullable=False)
-    gas = Column(Float)
+
     temperature = Column(Float)
+    humidity = Column(Float)
     pressure = Column(Float)
+    gas = Column(Float)
+
+    workers = Column(Integer, default=0)
+
+    active_permit = Column(String, default="None")
+
+    equipment_status = Column(String, default="Healthy")
+
+    event = Column(String, default="Normal")
+
+    risk_level = Column(String, default="LOW")
+
     updated_at = Column(DateTime, default=datetime.utcnow)
 
 

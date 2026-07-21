@@ -25,10 +25,24 @@ class PermitResponse(BaseModel):
 
 class SensorResponse(BaseModel):
     id: int
+
     zone: str
-    gas: float
+
     temperature: float
+    humidity: float
     pressure: float
+    gas: float
+
+    workers: int
+
+    active_permit: str
+
+    equipment_status: str
+
+    event: str
+
+    risk_level: str
+
     updated_at: datetime
 
     class Config:

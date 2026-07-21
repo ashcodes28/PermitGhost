@@ -25,3 +25,11 @@ def create_permit(permit: PermitCreate, db: Session = Depends(get_db)):
     db.refresh(new_permit)
 
     return new_permit
+
+from models import Sensor
+from schemas import SensorResponse
+
+
+@router.get("/sensors", response_model=list[SensorResponse])
+def get_sensors(db: Session = Depends(get_db)):
+    return db.query(Sensor).all()
